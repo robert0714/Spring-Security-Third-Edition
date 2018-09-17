@@ -14,4 +14,6 @@ Running the embedded Tomcat
 -
 gradle tomcatRun
 
+mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run
+
 

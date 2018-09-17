@@ -20,15 +20,16 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-//apply plugin: 'war'
+apply plugin: 'war'
 apply plugin: "com.bmuschko.tomcat"
 
 
 
 // Spring Security 4, for chapter 1, version 0
 version = '4.1.0-SNAPSHOT'
-group = 'com.example'
+group = 'com.packtpub.springsecurity'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8 
 
 
 dependencies {
@@ -54,8 +55,8 @@ dependencies {
 
     // Servlets
     compile ('javax.servlet:jstl')
-    //providedCompile ('javax.servlet:javax.servlet-api')
-   // providedCompile ('javax.servlet.jsp:javax.servlet.jsp-api')
+    providedCompile ('javax.servlet:javax.servlet-api:3.1.0')
+    providedCompile ('javax.servlet.jsp:javax.servlet.jsp-api:2.3.3')
 
     // Logging
     compile 'org.slf4j:slf4j-api'

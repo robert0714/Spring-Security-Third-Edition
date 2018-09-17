@@ -8,7 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -30,10 +34,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * https://docs.spring.io/spring-security/site/docs/current/reference/html/test-method.html
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration
+@ContextConfiguration(classes= {TestConfig.class})
 @WebAppConfiguration
-
-
+  
 // Option two:
 //@WebMvcTest
 
