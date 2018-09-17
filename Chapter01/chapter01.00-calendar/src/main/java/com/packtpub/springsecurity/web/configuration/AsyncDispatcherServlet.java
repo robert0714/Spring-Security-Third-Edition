@@ -27,7 +27,7 @@ public class AsyncDispatcherServlet extends DispatcherServlet {
 
     private ExecutorService exececutor;
     private static final int NUM_ASYNC_TASKS = 15;
-    private static final long TIME_OUT = 10 * 1_000;
+    private static final long TIME_OUT = 10 * 1000;
 
     private static final Logger logger = LoggerFactory
             .getLogger(AsyncDispatcherServlet.class);

@@ -1,22 +1,35 @@
 /*
  * Chapter 01.00 Calendar
  */
+
 buildscript {
-    ext {}
+     ext {
+                springBootVersion = '1.5.16.RELEASE'
+        }
     repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
+       mavenCentral()
+       maven { url "https://plugins.gradle.org/m2/" }
+        
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "com.bmuschko:gradle-tomcat-plugin:2.2.5"
+       classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")  
+       classpath "com.bmuschko:gradle-tomcat-plugin:2.5"
     }
 }
-
-apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'war'
 apply plugin: "com.bmuschko.tomcat"
+
+
 
 // Spring Security 4, for chapter 1, version 0
 version = '4.1.0-SNAPSHOT'
+group = 'com.example'
+sourceCompatibility = 1.8
+
 
 dependencies {
 
@@ -41,15 +54,15 @@ dependencies {
 
     // Servlets
     compile ('javax.servlet:jstl')
-    providedCompile ('javax.servlet:javax.servlet-api')
-    providedCompile ('javax.servlet.jsp:javax.servlet.jsp-api')
+    //providedCompile ('javax.servlet:javax.servlet-api')
+   // providedCompile ('javax.servlet.jsp:javax.servlet.jsp-api')
 
     // Logging
     compile 'org.slf4j:slf4j-api'
 
     // JSON support
-    compile 'org.codehaus.jackson:jackson-core-asl'
-    compile 'org.codehaus.jackson:jackson-mapper-asl'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
 
     // JSR-303 Validation Support
@@ -73,16 +86,16 @@ task explodedWar(type: Copy) {
     with war
 }
 
-war {
-    baseName = 'calendar'
-    archiveName = "${baseName}.war"
-}
+//war {
+//    baseName = 'calendar'
+//    archiveName = "${baseName}.war"
+//}
 
-war.doLast {
-    explodedWar.execute()
-}
+//war.doLast {
+//    explodedWar.execute()
+//}
 
-war.dependsOn explodedWar
+//war.dependsOn explodedWar
 
 
 tomcat {
@@ -99,3 +112,4 @@ tomcat {
         }
     }
 }
+

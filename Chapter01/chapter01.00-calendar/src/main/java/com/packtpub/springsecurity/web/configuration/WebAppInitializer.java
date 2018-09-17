@@ -3,6 +3,7 @@ package com.packtpub.springsecurity.web.configuration;
 import com.packtpub.springsecurity.configuration.JavaConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -14,7 +15,7 @@ import javax.servlet.ServletRegistration;
  * Replaces web.xml.txt in Servlet v.3.0+
  *
  * @see
- */
+ */ 
 public class WebAppInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer
         implements WebApplicationInitializer {
