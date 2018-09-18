@@ -6,6 +6,7 @@ used as a starting template for local CAS gradle war overlays.
 ## Versions
 
 * CAS 5.1.x
+https://github.com/apereo/cas-overlay-template/tree/5.3
 
 ## Requirements
 
