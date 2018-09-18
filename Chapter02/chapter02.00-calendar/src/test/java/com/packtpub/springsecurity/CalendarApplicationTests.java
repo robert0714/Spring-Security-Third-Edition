@@ -4,15 +4,13 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -34,11 +32,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * https://docs.spring.io/spring-security/site/docs/current/reference/html/test-method.html
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes= {TestConfig.class})
-@WebAppConfiguration
-  
+//@ContextConfiguration
+//@WebAppConfiguration
+
+
 // Option two:
-//@WebMvcTest
+@WebMvcTest
 
 public class CalendarApplicationTests {
 
@@ -50,15 +49,16 @@ public class CalendarApplicationTests {
 
     WebDriver driver;
 
-//    @Autowired
-//    private MockMvc mvc;
-    private MockMvc mvc = MockMvcBuilders
-        .webAppContextSetup(context)
-//        .apply(springSecurity())
-        .build();
+    @Autowired
+    private MockMvc mvc;
+//    private MockMvc mvc = null;
 
     @Before
     public void setup() {
+//    	mvc = MockMvcBuilders
+//    	        .webAppContextSetup(context)
+//    	        .apply(springSecurity())
+//    	        .build();
         webClient = MockMvcWebClientBuilder
                 // demonstrates applying a MockMvcConfigurer (Spring Security)
 //                .webAppContextSetup(context, springSecurity())
@@ -100,6 +100,10 @@ public class CalendarApplicationTests {
     @Test
 //    @WithAnonymousUser
     public void pageTest() throws Exception {
+    	 
+    	
+//    	HtmlPage createMsgFormPage01 = webClient.getPage("/login/form");
+//    	System.out.println(createMsgFormPage01);
         HtmlPage createMsgFormPage = webClient.getPage("http://localhost:8080/login/form");
 
 
@@ -165,7 +169,8 @@ public class CalendarApplicationTests {
         ;
     }
 
-//    @Test
+   @Test
+//   @Ignore
     public void test_login_admin1() throws Exception {
         mvc.perform(post("/login")
                 .accept(MediaType.TEXT_HTML)

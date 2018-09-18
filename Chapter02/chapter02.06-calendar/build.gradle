@@ -6,10 +6,18 @@
 buildscript {
     ext {}
     repositories {
-//        jcenter()
+        mavenLocal()
+       // jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
+
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/libs-milestone" }
+
+      //  maven { url "https://repo.spring.io/libs-snapshot" }
+       // maven { url "https://repo.spring.io/snapshot" }
     }
     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")  
         classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}"
         classpath "com.bmuschko:gradle-tomcat-plugin:${bmuschkoGradleTomcatPluginVersion}"
     }
@@ -17,6 +25,7 @@ buildscript {
 
 apply plugin: "io.spring.dependency-management"
 apply plugin: "war"
+//apply plugin: 'spring-boot' 
 apply plugin: "com.bmuschko.tomcat"
 apply plugin: "com.bmuschko.tomcat-base"
 
