@@ -14,8 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.packtpub.springsecurity.core.authority.CalendarUserAuthorityUtils;
-import com.packtpub.springsecurity.userdetails.CalendarUserDetailsService;
+import com.packtpub.springsecurity.core.authority.CalendarUserAuthorityUtils; 
 import com.packtpub.springsecurity.domain.CalendarUser;
 import com.packtpub.springsecurity.service.CalendarService;
 
