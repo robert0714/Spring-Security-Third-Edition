@@ -278,8 +278,15 @@
 					</container>
 					<configuration>
 						<home>${project.build.directory}/tomcat8x/container</home>
-
 					</configuration>
+					<deployables>
+			            <deployable> 
+                            <type>war</type>
+			                <properties>
+			                  <context>calendar</context>
+			                </properties>
+			            </deployable>
+			        </deployables>
 				</configuration>
 			</plugin>
 		</plugins>
