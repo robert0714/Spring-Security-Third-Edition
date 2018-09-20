@@ -268,7 +268,7 @@
 				<configuration>
 					<mainClass>com.packtpub.springsecurity.CalendarApplication</mainClass>
 					<executable>true</executable>
-				</configuration>
+				</configuration>				 
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>

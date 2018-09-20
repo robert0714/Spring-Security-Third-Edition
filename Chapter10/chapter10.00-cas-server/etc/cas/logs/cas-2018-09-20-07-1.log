@@ -1,0 +1,17 @@
+[32m2018-09-20 07:57:41,869 INFO [org.apereo.cas.configuration.config.CasCoreBootstrapStandaloneConfiguration] - <Configuration files found at [/etc/cas/config] are [[/etc/cas/config/application.yml, /etc/cas/config/cas.properties]]>[m
+[32m2018-09-20 07:57:41,890 INFO [org.apereo.cas.configuration.config.CasCoreBootstrapStandaloneConfiguration] - <Found and loaded [5] setting(s) from [/etc/cas/config]>[m
+[32m2018-09-20 07:57:41,891 INFO [org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration] - <Located property source: PropertiesPropertySource {name='standaloneCasConfigService'}>[m
+[1;31m2018-09-20 07:58:07,497 ERROR [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] - <
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8443 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8443, or configure this application to listen on another port.
+>[m

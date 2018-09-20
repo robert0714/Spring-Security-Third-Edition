@@ -6,7 +6,7 @@ used as a starting template for local CAS gradle war overlays.
 ## Versions
 
 * CAS 5.1.x
-https://github.com/apereo/cas-overlay-template/tree/5.3
+https://github.com/apereo/cas-overlay-template/tree/5.1
 
 ## Requirements
 
@@ -168,4 +168,15 @@ to examine dependencies, configuration files and such that are merged as part of
 ```bash
 ./gradlew[.bat] explodeWar
 ```
+# Running the services for Developing
 
+Now we are going to use docker-compose to start the actual image.  To start the docker image,
+change to the directory containing  your   source code.  Issue the following docker-compose command:
+
+   **docker-compose -f docker/common/docker-compose.yml up**
+   
+   
+   
+# Running Cargo plugins
+
+mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run
