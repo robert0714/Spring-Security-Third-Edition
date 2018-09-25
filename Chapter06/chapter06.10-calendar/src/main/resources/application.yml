@@ -51,7 +51,3 @@ management:
 
 
 ##---------------------------------------------------------------------------##
-logging:
-  level:
-    org.apache.dirctory.server.protocol.shared.store: DEBUG 
-    org.springframework.security.ldap: DEBUG 

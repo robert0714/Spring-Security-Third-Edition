@@ -235,6 +235,26 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<!-- <version>2.1.2.RELEASE</version> -->
 		</dependency>
+		<dependency>
+			<groupId>com.unboundid</groupId>
+			<artifactId>unboundid-ldapsdk</artifactId>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-core</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-protocol-ldap</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-protocol-shared</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>calendar</finalName>

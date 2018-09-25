@@ -41,6 +41,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.Filter;
 
 /**
  * Spring Security Config Class
@@ -49,12 +50,13 @@ import javax.annotation.security.RolesAllowed;
  */
 @Configuration
 @EnableWebSecurity(debug = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalAuthentication
 @Import(CasConfig.class)
 
 // Thymeleaf needs to use the Thymeleaf configured FilterSecurityInterceptor
 // and not the default Filter from AutoConfiguration.
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger logger = LoggerFactory
@@ -65,13 +67,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CasAuthenticationEntryPoint casAuthenticationEntryPoint;
-
-    @Autowired
-    private CasAuthenticationFilter casFilter;
+ 
 
     @Autowired
     private CasAuthenticationProvider casAuthenticationProvider;
-
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
+    
+    public CasAuthenticationFilter casFilter() {
+        CasAuthenticationFilter casAuthenticationFilter = new CasAuthenticationFilter();
+        casAuthenticationFilter.setAuthenticationManager(authenticationManager);
+        casAuthenticationFilter.setFilterProcessesUrl("/login");
+        return casAuthenticationFilter;
+    }
 
     /**
      * Configure AuthenticationManager.
@@ -96,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        super.configure(auth);
+        super.configure(auth);
         auth.authenticationProvider(casAuthenticationProvider);
     }
 
@@ -177,7 +187,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // CSRF is enabled by default, with Java Config
         http.csrf().disable();
 
-        http.addFilterAt(casFilter, CasAuthenticationFilter.class);
+        
+        
+        Filter casFilter=casFilter();
+		http.addFilterAt(casFilter, CasAuthenticationFilter.class);
 
         // Exception Handling
         http.exceptionHandling()
@@ -197,7 +210,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    @Bean
+    @Bean 
     public UserDetailsByNameServiceWrapper authenticationUserDetailsService(
             final UserDetailsService userDetailsService){
         return new UserDetailsByNameServiceWrapper(){{

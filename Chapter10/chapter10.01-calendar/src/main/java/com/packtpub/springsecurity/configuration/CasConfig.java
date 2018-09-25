@@ -7,21 +7,25 @@ import org.jasig.cas.client.validation.Cas20ProxyTicketValidator;
 import org.jasig.cas.client.validation.Cas30ProxyTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.authentication.CasAuthenticationProvider;
 import org.springframework.security.cas.web.CasAuthenticationEntryPoint;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author Mick Knutson
  * @since chapter 10.00
  */
 @Configuration
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class CasConfig {
 
 
@@ -32,16 +36,20 @@ public class CasConfig {
         System.setProperty("cas.calendar.service.login", "https://localhost:8443/login");
     }
 
-    @Value("#{systemProperties['cas.server']}")
-    private static String casServer;
+//    @Value("#{systemProperties['cas.server']}")
+    @Value("${cas.server:}")
+    private  String casServer;
 
-    @Value("#{systemProperties['cas.service']}")
-    private static String casService;
+//    @Value("#{systemProperties['cas.service']}")
+    @Value("${cas.service:}")
+    private   String casService;
 
-    @Value("#{systemProperties['cas.server.login']}")
+//    @Value("#{systemProperties['cas.server.login']}")
+    @Value("${cas.server.login:}")
     private String casServerLogin;
 
-    @Value("#{systemProperties['cas.server.login']}")
+//    @Value("#{systemProperties['cas.server.login']}")
+    @Value("${cas.server.login:}")
     private String calendarServiceLogin;
 
 
@@ -53,17 +61,14 @@ public class CasConfig {
     }
 
     @Autowired
-    private CalendarUserDetailsService calendarUserDetailsService;
+    private UserDetailsService calendarUserDetailsService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+ 
 
 //    @Autowired
 //    private Cas20ProxyTicketValidator ticketValidator;
 
-    @Autowired
-    private UserDetailsByNameServiceWrapper userDetailsByNameServiceWrapper;
-
+     
 
     @Bean
     public CasAuthenticationEntryPoint casAuthenticationEntryPoint()
@@ -76,26 +81,32 @@ public class CasConfig {
         return entryPoint;
     }
 
-    @Bean
-    public CasAuthenticationFilter casFilter() {
-        CasAuthenticationFilter casAuthenticationFilter = new CasAuthenticationFilter();
-        casAuthenticationFilter.setAuthenticationManager(authenticationManager);
-        casAuthenticationFilter.setFilterProcessesUrl("/login");
-        return casAuthenticationFilter;
-    }
+ 
 
 
 
-    @Bean
+    @Bean 
     public CasAuthenticationProvider casAuthenticationProvider() {
         CasAuthenticationProvider casAuthenticationProvider = new CasAuthenticationProvider();
         casAuthenticationProvider.setTicketValidator(ticketValidator());
         casAuthenticationProvider.setServiceProperties(serviceProperties());
         casAuthenticationProvider.setKey("casJbcpCalendar");
+        
+        final UserDetailsByNameServiceWrapper    userDetailsByNameServiceWrapper =   authenticationUserDetailsService( ) ; 
+        
         casAuthenticationProvider.setAuthenticationUserDetailsService(userDetailsByNameServiceWrapper);
         return casAuthenticationProvider;
     }
+     
+	public UserDetailsByNameServiceWrapper authenticationUserDetailsService() {
+		final UserDetailsByNameServiceWrapper result = new UserDetailsByNameServiceWrapper() {
+			{
+				setUserDetailsService(calendarUserDetailsService);
+			}
+		};
 
+		return result;
+	}
 
     @Bean
     public Cas30ProxyTicketValidator ticketValidator(){

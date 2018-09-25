@@ -3,12 +3,29 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.apereo.cas</groupId>
-	<artifactId>cas-overlay</artifactId>
+	<groupId>com.packtpub.springsecurity</groupId>
+	<artifactId>chapter10.00-cas-server</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-
+   <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.14.RELEASE</version>
+	</parent>
 	<build>
+	     <sourceDirectory>cas/src/main/java</sourceDirectory>
+	    <resources>
+			<resource>
+				<directory>cas/src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+					<include>*.xml</include>
+					<include>*.yml</include>
+					<include>*.ldif</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>com.rimerosolutions.maven.plugins</groupId>
@@ -26,7 +43,15 @@
 				<configuration>
 					<mainClass>org.springframework.boot.loader.WarLauncher</mainClass>
 					<addResources>true</addResources>
+					 <executable>${isExecutable}</executable>
 				</configuration>
+				<executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -88,11 +113,7 @@
 		<finalName>cas</finalName>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-loader</artifactId>
-		</dependency>
+	<dependencies> 
 		<dependency>
 			<groupId>org.apereo.cas</groupId>
 			<artifactId>cas-server-webapp${app.server}</artifactId>
@@ -115,14 +136,47 @@
 			<artifactId>cas-server-support-jdbc-drivers</artifactId>
 			<version>${cas.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+			<scope>compile</scope>
+		</dependency>
+			<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId> 
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId> 
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-ldap</artifactId> 
+		</dependency>
 	</dependencies>
 
 	<properties>
-		<cas.version>5.1.9</cas.version>
-		<springboot.version>1.5.16.RELEASE</springboot.version>
+		<cas.version>5.3.3</cas.version>
+		<springboot.version>1.5.14.RELEASE</springboot.version>
 		<!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan 
 			to provide appserver -->
 		<app.server>-tomcat</app.server>
+		<isExecutable>false</isExecutable>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

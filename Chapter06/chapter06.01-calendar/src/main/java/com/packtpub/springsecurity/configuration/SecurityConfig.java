@@ -21,6 +21,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
+import org.springframework.security.ldap.authentication.BindAuthenticator;
+import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
+import org.springframework.security.ldap.authentication.LdapAuthenticator;
 import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator;
 import org.springframework.security.ldap.userdetails.InetOrgPersonContextMapper;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
@@ -49,10 +52,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private int LDAP_PORT;
 
 
+//    @Autowired
+//    private CalendarUserDetailsService calendarUserDetailsService;
+
+//    @Autowired
+//    private LdapAuthenticationProvider lap;
+//    
+//    @Autowired
+//    private LdapAuthenticator la;
+//
+//    
+//    @Autowired
+//    private BindAuthenticator ba;
+    
+//  @Autowired
+//  private LdapAuthoritiesPopulator lap;
+     
     @Autowired
-    private CalendarUserDetailsService calendarUserDetailsService;
+    private  AuthenticationManager am;
 
-
+    
     /**
      * Configure AuthenticationManager with inMemory credentials.
      *
@@ -78,9 +97,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .ldapAuthentication()
+                .userSearchBase("")
                 .userSearchFilter("(uid={0})")
-                .groupSearchBase("ou=Groups")
+//                .userSearchFilter("(uniqueMember={0})")
+//                .groupSearchBase("ou=Groups")
                 .contextSource(contextSource())
+                .passwordCompare()
+                .passwordAttribute("userPassword")
         ;
     }
 

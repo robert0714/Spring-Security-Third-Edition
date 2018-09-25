@@ -33,31 +33,27 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-ldap</artifactId> 
+			<artifactId>spring-security-ldap</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ldap</groupId>
-			<artifactId>spring-ldap-core</artifactId> 
+			<artifactId>spring-ldap-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-security-core</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-security-web</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-boot-starter-logging</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-boot-devtools</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,38 +67,31 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-beans</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-context</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-context-support</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-core</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-expression</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-jdbc</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-tx</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -111,55 +100,45 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<scope>compile</scope>
+			<artifactId>spring-webmvc</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<scope>compile</scope>
+			<artifactId>jstl</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>compile</scope>
+			<artifactId>slf4j-api</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<scope>compile</scope>
+			<artifactId>jackson-core-asl</artifactId> 
 			<version>1.9.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<scope>compile</scope>
+			<artifactId>jackson-mapper-asl</artifactId> 
 			<version>1.9.13</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<scope>compile</scope>
+			<artifactId>jackson-annotations</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<scope>compile</scope>
+			<artifactId>validation-api</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>compile</scope>
+			<artifactId>hibernate-validator</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator-annotation-processor</artifactId>
-			<scope>compile</scope>
+			<artifactId>hibernate-validator-annotation-processor</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<scope>compile</scope>
+			<artifactId>joda-time</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -168,7 +147,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-ldap</artifactId> 
+			<artifactId>spring-boot-starter-data-ldap</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -235,6 +214,26 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<!-- <version>2.1.2.RELEASE</version> -->
 		</dependency>
+		<dependency>
+			<groupId>com.unboundid</groupId>
+			<artifactId>unboundid-ldapsdk</artifactId>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-core</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-protocol-ldap</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-protocol-shared</artifactId>
+			<version>2.0.0-M24</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>calendar</finalName>
@@ -262,13 +261,13 @@
 						<home>${project.build.directory}/tomcat8x/container</home>
 					</configuration>
 					<deployables>
-			            <deployable> 
-                            <type>war</type>
-			                <properties>
-			                  <context>calendar</context>
-			                </properties>
-			            </deployable>
-			        </deployables>
+						<deployable>
+							<type>war</type>
+							<properties>
+								<context>calendar</context>
+							</properties>
+						</deployable>
+					</deployables>
 				</configuration>
 			</plugin>
 		</plugins>
