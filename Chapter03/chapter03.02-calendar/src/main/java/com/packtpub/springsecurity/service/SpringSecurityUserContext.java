@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Component;
 
 import com.packtpub.springsecurity.domain.CalendarUser;
@@ -24,6 +25,7 @@ public class SpringSecurityUserContext implements UserContext {
 
     private final CalendarService calendarService;
     private final UserDetailsService userDetailsService;
+     
 
     @Autowired
     public SpringSecurityUserContext(CalendarService calendarService,UserDetailsService userDetailsService) {
