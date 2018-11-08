@@ -2,7 +2,8 @@ package org.apereo.cas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration; 
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
@@ -11,13 +12,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-@SpringBootApplication  
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class ,JpaRepositoriesAutoConfiguration.class})
 public class CasWarOverlayApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CasWarOverlayApplication.class, args);
 	}
-	
- 
+
 }

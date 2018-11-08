@@ -1,0 +1,31 @@
+#------------------------------------------------------------------------------#
+# Application YAML #
+# inside ./src/main/resources/application.yml
+#------------------------------------------------------------------------------#
+debug: false
+
+#spring:
+#
+#  ## LDAP
+#  ldap:
+#    embedded:
+#      ldif: classpath:/ldif/calendar.ldif
+#      baseDn: dc=jbcpcalendar,dc=com
+#      port: ${LDAP_PORT:33389}
+#      credential:
+#        username: user
+#        password: secret
+
+##---------------------------------------------------------------------------##
+server:
+  port: 9443
+  ssl:
+    key-store: classpath:/tls_sample/tomcat.keystore
+
+cas:
+  tgc:
+    secure: false
+  serviceRegistry:
+    initFromJson: 'true'    
+    config:
+      location: classpath:/services
