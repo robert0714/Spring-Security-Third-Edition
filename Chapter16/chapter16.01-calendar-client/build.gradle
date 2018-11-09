@@ -34,7 +34,8 @@ version = "4.16.01-SNAPSHOT"
 
 //mainClassName = "com.packtpub.springsecurity.CalendarClientApplication"
 repositories {
-	mavenCentral()
+	// mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
 }
 
 ext {
