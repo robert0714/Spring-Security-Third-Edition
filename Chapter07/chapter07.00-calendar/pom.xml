@@ -25,18 +25,18 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-	<dependencies>
+	<dependencies>	    
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<!-- Security: -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
+
 		<!-- Spring Security OAuth2 -->
 		<!-- <dependency> -->
 		<!-- <groupId>org.springframework.security.oauth</groupId> -->
@@ -45,16 +45,16 @@
 		<!-- </dependency> -->
 
 		<!-- Needed to skip SSL Hostname Verification -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.httpcomponents</groupId> -->
+		<!-- <artifactId>httpclient</artifactId> -->
+		<!-- </dependency> -->
 
 		<!-- Spring Security JWT -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.security</groupId> -->
+		<!-- <artifactId>spring-security-jwt</artifactId> -->
+		<!-- </dependency> -->
 
 		<!-- Web -->
 		<dependency>
@@ -65,7 +65,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<!-- <version>2.1.2.RELEASE</version> -->
+		</dependency>
+        
+		
 		<!-- Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -83,20 +89,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>io.logz.logback</groupId> -->
+		<!-- <artifactId>logzio-logback-appender</artifactId> -->
+		<!-- <version>1.0.20</version> -->
+		<!-- </dependency> -->
 		<dependency>
-			<groupId>io.logz.logback</groupId>
-			<artifactId>logzio-logback-appender</artifactId>
-			<version>1.0.20</version>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
+			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.boot</groupId> -->
+		<!-- <artifactId>spring-boot-starter-undertow</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.boot</groupId> -->
+		<!-- <artifactId>spring-boot-starter-jersey</artifactId> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>javax.annotation</groupId>

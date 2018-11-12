@@ -48,6 +48,7 @@ dependencies {
     // Web
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 
     // Tools:
     compile('org.springframework.boot:spring-boot-starter-logging')
@@ -63,7 +64,7 @@ dependencies {
     // JSR-250 Annotations
     //OLD: compile ('javax.annotation:jsr250-api:1.0')
     compile ("javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}")
-     compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
     //-- WebJars -->
     compile 'org.webjars:bootstrap:3.3.7-1'
@@ -76,3 +77,21 @@ dependencies {
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '2.53.1'
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-htmlunit-driver', version: '2.52.0'
 } // The End...
+task writeNewPom << {
+    pom {
+        project {
+            groupId  'com.packtpub.springsecurity'
+            artifactId 'chapter4.7.00-calendar'
+            version '1.0.0'
+        
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/newpom.xml")
+}
