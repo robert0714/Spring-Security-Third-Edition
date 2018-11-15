@@ -34,8 +34,13 @@ public class JpaPersistentTokenRepository implements PersistentTokenRepository {
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
 		PersistentLogin token = this.rememberMeTokenRepository.findBySeries(seriesId);
-		return new PersistentRememberMeToken(token.getUsername(), token.getSeries(), token.getToken(),
-				token.getLastUsed());
+		if (token != null) {
+			return new PersistentRememberMeToken(token.getUsername(), token.getSeries(), token.getToken(),
+					token.getLastUsed());
+		} else {
+			return null;
+		}
+
 	}
 
 	@Override

@@ -52,8 +52,8 @@ public class SpringSecurityUserContext implements UserContext {
         if (authentication == null) {
             return null;
         }
-        CalendarUser user = (CalendarUser) authentication.getPrincipal();
-        String email = user.getEmail();        if (email == null) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        String email = user.getUsername() ;      if (email == null) {
             return null;
         }
         CalendarUser result = calendarService.findUserByEmail(email);
