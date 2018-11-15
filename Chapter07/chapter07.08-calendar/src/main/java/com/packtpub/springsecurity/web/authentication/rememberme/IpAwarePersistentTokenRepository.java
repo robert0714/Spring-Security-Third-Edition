@@ -1,4 +1,4 @@
-package com.packtpub.springsecurity.web.authentication.rememberme; 
+package com.packtpub.springsecurity.web.authentication.rememberme;
 
 import java.util.Date;
 
@@ -8,7 +8,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * reference :https://github.com/v5developer/maven-framework-project/blob/master/spring-security-examples/spring-security-db/src/main/java/com/example/springsecurity/web/authentication/rememberme/IpAwarePersistentTokenRepository.java
  * <p>
  * A {@link PersistentTokenRepository} that looks up and stores the {@link PersistentRememberMeToken} based upon the
  * seriesId + the current user's IP Address. This means that in order to use the token, the user must have the same IP
@@ -30,7 +29,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *  &lt;/listener&gt;
  * </pre>
  *
- * 
+ * @author Rob Winch
  * @see RequestContextHolder
  */
 public final class IpAwarePersistentTokenRepository implements PersistentTokenRepository {

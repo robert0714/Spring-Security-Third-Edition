@@ -25,6 +25,8 @@ public class SignupController {
             .getLogger(SignupController.class);
 
     private final UserContext userContext;
+     
+    
     private final CalendarService calendarService;
 
     @Autowired
@@ -67,6 +69,7 @@ public class SignupController {
         int id = calendarService.createUser(user);
         user.setId(id);
         userContext.setCurrentUser(user);
+         
 
         redirectAttributes.addFlashAttribute("message", "You have successfully signed up and logged in.");
         return "redirect:/";

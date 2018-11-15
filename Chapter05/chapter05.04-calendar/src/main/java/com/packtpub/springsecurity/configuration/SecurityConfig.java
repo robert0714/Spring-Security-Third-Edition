@@ -30,11 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final Logger logger = LoggerFactory
             .getLogger(SecurityConfig.class);
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-
     @Autowired
-    private CalendarUserDetailsService calendarUserDetailsService;
+    private UserDetailsService userDetailsService;
+
+//    @Autowired
+//    private CalendarUserDetailsService calendarUserDetailsService;
 
 
 //    @Autowired
@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(calendarUserDetailsService)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder())
         ;
     }

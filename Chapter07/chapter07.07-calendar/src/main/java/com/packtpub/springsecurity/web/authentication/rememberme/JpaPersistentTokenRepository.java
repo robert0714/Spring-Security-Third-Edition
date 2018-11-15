@@ -10,42 +10,42 @@ import com.packtpub.springsecurity.domain.PersistentLogin;
 import com.packtpub.springsecurity.repository.RememberMeTokenRepository;
 
 public class JpaPersistentTokenRepository implements PersistentTokenRepository {
-
-	private RememberMeTokenRepository rememberMeTokenPepository;
+	private RememberMeTokenRepository rememberMeTokenRepository;
 
 	public JpaPersistentTokenRepository(RememberMeTokenRepository rmtr) {
-		this.rememberMeTokenPepository = rmtr;
+		this.rememberMeTokenRepository = rmtr;
 	}
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
 		PersistentLogin newToken = new PersistentLogin(token);
-		this.rememberMeTokenPepository.save(newToken);
+		this.rememberMeTokenRepository.save(newToken);
 	}
 
-	@Override
 	public void updateToken(String series, String tokenValue, Date lastUsed) {
-		PersistentLogin token = this.rememberMeTokenPepository.findBySeries(series);
+		PersistentLogin token = this.rememberMeTokenRepository.findBySeries(series);
 		if (token != null) {
 			token.setToken(tokenValue);
 			token.setLastUsed(lastUsed);
-			this.rememberMeTokenPepository.save(token);
+			this.rememberMeTokenRepository.save(token);
 		}
-
 	}
 
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		PersistentLogin token = this.rememberMeTokenPepository.findBySeries(seriesId);
-		PersistentRememberMeToken result = new PersistentRememberMeToken(token.getUsername(), token.getSeries(),
-				token.getToken(), token.getLastUsed());
-		return result;
+		PersistentLogin token = this.rememberMeTokenRepository.findBySeries(seriesId);
+		if (token != null) {
+			return new PersistentRememberMeToken(token.getUsername(), token.getSeries(), token.getToken(),
+					token.getLastUsed());
+		} else {
+			return null;
+		}
+		
 	}
 
 	@Override
 	public void removeUserTokens(String username) {
-		List<PersistentLogin> tokens = this.rememberMeTokenPepository.findByUsername(username);
-		this.rememberMeTokenPepository.delete(tokens);
+		List<PersistentLogin> tokens = this.rememberMeTokenRepository.findByUsername(username);
+		this.rememberMeTokenRepository.delete(tokens);
 	}
-
 }

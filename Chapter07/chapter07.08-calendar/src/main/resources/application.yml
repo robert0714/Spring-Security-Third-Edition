@@ -3,6 +3,10 @@
 # inside ./src/main/resources/application.yml
 #------------------------------------------------------------------------------#
 debug: false
+logging:
+  level:
+    org.springframework.security: DEBUG
+    
 
 spring:
   ## Thymeleaf configuration:
@@ -46,6 +50,7 @@ spring:
 management:
   security:
     enabled: false
+    
 
 
 ##---------------------------------------------------------------------------##
