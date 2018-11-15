@@ -1,65 +1,102 @@
 /*
- * Chapter 12 Calendar
+ * Chapter 7 Calendar
  *
  * @author Mick Knutson
  */
-buildscript {
-	ext {}
-    repositories {
-        jcenter()
-
-        maven { url 'https://plugins.gradle.org/m2/' }
-
-        maven { url 'https://repo.spring.io/libs-snapshot' }
-        maven { url 'https://repo.spring.io/snapshot' }
-        maven { url 'https://repo.spring.io/milestone' }
-        maven { url 'https://repo.spring.io/libs-milestone' }
-    }
+ buildscript {
+	ext {
+		springBootVersion = '1.5.17.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
+apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+group = 'com.packtpub.springsecurity'
 
 // Spring Security 4, for chapter 12
-version = '4.7.12-SNAPSHOT'
+version = '4.12.04-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+ext {
+       javaxAnnotationApiVersion=1.3
+    }
+
+
 
 dependencies {
-
-    // Spring Aspect Oriented Programming
-	compile('org.springframework.boot:spring-boot-starter-aop')
 
     // JPA / ORM / Hibernate:
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
-    // H2 RDBMS
-    runtime('com.h2database:h2')
+    // Security:
+    compile('org.springframework.boot:spring-boot-starter-security')
 
     // ACL
     compile('org.springframework.security:spring-security-acl')
     compile('net.sf.ehcache:ehcache')
     compile('org.springframework:spring-context-support')
 
-    // Security:
-	compile('org.springframework.boot:spring-boot-starter-security')
-    testCompile('org.springframework.security:spring-security-test')
-
     // Web
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 
     // Tools:
-	compile('org.springframework.boot:spring-boot-starter-logging')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	//compile('org.springframework.boot:spring-boot-actuator-docs')
-	runtime('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-logging')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-configuration-processor')
 
     // Testing
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
 
-    // JSON Support
-    compile ('com.fasterxml.jackson.core:jackson-core')
-    compile ('com.fasterxml.jackson.core:jackson-databind')
+    // Required for JSR-250 based security:
+    // JSR-250 Annotations
+    //OLD: compile ('javax.annotation:jsr250-api:1.0')
+    compile ("javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}")
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
+    //-- WebJars -->
+    compile 'org.webjars:bootstrap:3.3.7-1'
+    compile 'org.webjars:jquery:3.2.0'
+    compile 'org.webjars:webjars-locator:0.32-1'
+
+
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.53.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '2.53.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-ie-driver', version: '2.53.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-htmlunit-driver', version: '2.52.0'
+} // The End...
+task writeNewPom << {
+    pom {
+        project {
+            groupId  'com.packtpub.springsecurity'
+            artifactId 'chapter4.7.00-calendar'
+            version '1.0.0'
+        
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/newpom.xml")
 }
