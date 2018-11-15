@@ -1,16 +1,12 @@
 package com.packtpub.springsecurity.configuration;
-
-import com.packtpub.springsecurity.repository.RememberMeTokenRepository;
+ 
 import com.packtpub.springsecurity.service.UserDetailsServiceImpl;
-import com.packtpub.springsecurity.web.authentication.rememberme.IpAwarePersistentTokenRepository;
-import com.packtpub.springsecurity.web.authentication.rememberme.JpaPersistentTokenRepository;
-import com.packtpub.springsecurity.web.authentication.rememberme.JpaTokenRepositoryCleaner;
+ 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.context.annotation.Configuration; 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository; 
 
 /**
  * Spring Security Config Class
@@ -40,8 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private PersistentTokenRepository persistentTokenRepository;
+ 
 
     @Autowired
     private RememberMeServices rememberMeServices;
