@@ -38,7 +38,7 @@ spring:
               create-target: build/create.sql
 
   ## Social Configuration:
-  social:
+  social:  
     # facebook
     facebook:
       appId: 299089913898983
@@ -59,6 +59,7 @@ spring:
     twitter:
       appId: cgceheRX6a8EAE74JUeiRi8jZ
       appSecret: XR0J2N0Inzy2y2poxzot9oSAaE6MIOs4QHSWzT8dyeZaaeawep
+      
 
 
 ##---------------------------------------------------------------------------##
