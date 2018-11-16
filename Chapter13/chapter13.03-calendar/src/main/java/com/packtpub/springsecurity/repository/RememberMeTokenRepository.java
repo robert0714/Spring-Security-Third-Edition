@@ -14,5 +14,7 @@ public interface RememberMeTokenRepository extends JpaRepository<PersistentLogin
     List<PersistentLogin> findByUsername(String username);
 
     Iterable<PersistentLogin> findByLastUsedAfter(Date expiration);
+    
+	Iterable<PersistentLogin> findByLastUsed(Date lastUsed);
 
 } // The End...
