@@ -1,182 +1,128 @@
-CAS Gradle Overlay
+CAS Overlay Template
 ============================
-Generic CAS gradle war overlay to exercise the latest versions of CAS. This overlay could be freely
-used as a starting template for local CAS gradle war overlays.
 
-## Versions
+Generic CAS WAR overlay to exercise the latest versions of CAS. This overlay could be freely used as a starting template for local CAS war overlays. The CAS services management overlay is available [here](https://github.com/apereo/cas-services-management-overlay).
 
-* CAS 5.1.x
-https://github.com/apereo/cas-overlay-template/tree/5.1
+# Versions
 
-## Requirements
+```xml
+<cas.version>5.3.x</cas.version>
+```
+
+# Requirements
 
 * JDK 1.8+
 
-## Configuration
+# Configuration
 
-The `etc` directory contains the configuration files that are copied to `/etc/cas/config`  automatically.
+The `etc` directory contains the configuration files and directories that need to be copied to `/etc/cas/config`.
 
-## Adding Modules
-
-CAS modules may be specified under the `dependencies` block of the [CAS subproject](cas/build.gradle):
-
-```gradle
-dependencies {
-    compile "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
-    compile "org.apereo.cas:cas-server-some-module:${project.'cas.version'}"
-    ...
-}
+# Git clone
+Launch your favorite command prompt and clone the CAS overlay project into your desired project. I am going to create a folder named cas-sample , wherein I will clone the server in the server folder by executing the following command from the cas-sample folder:
+```
+git clone https://github.com/apereo/cas-overlay-template.git server
 ```
 
-Study material:
+# Adding additional dependencies
+ 
+The CAS server doesn't allow any client to connect to it. Each client has to be registered with the desired CAS server. There are multiple mechanisms by which we can register a client to the server. We will use the JSON/YML configuration to register our client to the server. Go ahead and add the following dependency to your pom.xml file within the server project that you just cloned:
 
-- https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
-- https://docs.gradle.org/current/userguide/dependency_management.html
+```
+    <dependency>
+       <groupId>org.apereo.cas</groupId>
+       <artifactId>cas-server-support-json-service-registry</artifactId>
+       <version>${cas.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.apereo.cas</groupId>
+       <artifactId>cas-server-support-yaml-service-registry</artifactId>
+       <version>${cas.version}</version>
+    </dependency>
+```
+Most of the versions in the pom.xml file are managed by the parent POM.
 
-## Build
+# Setting up the resources folder in the project
+In the server project, create a folder called src/main/resources . Copy the etc folder within the server folder into src/main/resources :
 
-```bash
-./gradlew[.bat] clean build
+```
+    mkdir -p src/main/resources
+    cp -R etc src/main/resources
+```
+# Creating the application.properties file
+Create a file named application.properties :
+```
+touch src/main/resources/application.properties
 ```
 
-Faster builds on subsequent attempts once modules/dependencies are resolved:
+Now fill in the following details in the *application.properties* file:
 
-```bash
-./gradlew[.bat] clean build --parallel --offline
+```
+server.context-path=/cas
+server.port=9443
+server.ssl.key-store=classpath:/etc/cas/thekeystore
+server.ssl.key-store-password=changeit
+server.ssl.key-password=changeit
+cas.server.name: https://localhost:9443
+cas.server.prefix: https://localhost:9443/cas
+cas.adminPagesSecurity.ip=127.0.0.1
+cas.authn.accept.users=casuser::password
 ```
 
-Note: A number of options can be made default in `gradle.properties`. For example, `--parallel` can be defaulted via  `org.gradle.parallel=true`.
+The preceding file sets the port and SSL keystore values (a very important step in setting up a CAS server), and also sets up the CAS server *config* folder. Clearly, we need to create a keystore as indicated in this file.
 
-### Updating SNAPSHOT Builds
+Please note, the overlay project has a file, namely the *build.sh* file, that contains most of these details in it. We are manually doing this to have a clear understanding.
 
-If you are on a `SNAPSHOT` version, you can force re-downloads of modules/dependencies:
+The last line in *application.properties* sets up a test user with the credentials *casuser*/*password* , which can be used to log into the CAS server for various
+demo purposes. This approach is not recommended in the production setup.
 
-```bash
- ./gradlew[.bat] clean build --parallel --refresh-dependencies
+# Creating a local SSL keystore
+
+Navigate to the Chapter10/chapter10.00-calendar/src/main/resources/etc/cas folder in a shell and execute the following command:
+
+```
+keytool -genkey -keyalg RSA -alias  thekeystore  -keystore thekeystore  -storepass password  -validity 360 -keysize 2048
 ```
 
-### Clear Gradle Cache
+The following figure shows the successful execution of the preceding command in a command prompt window:
 
-If you need to, on Linux/Unix systems, you can delete all the existing artifacts (artifacts and metadata)
-Gradle has downloaded using:
 
-```bash
-# Only do this when absolutely necessary!
-rm -rf $HOME/.gradle/caches/
+It's important to note that for the SSL handshake to work properly, most of the values while generating the keystore are put as localhost. This is an important step and needs to be followed without fail.
+
+
+# Creating the .crt file to be used by the client
+For the client to connect to the CAS server, out of the generated keystore, we need to create a .crt file. In the same folder ( Chapter10/chapter10.00-calendar/src/main/resources/etc/cas ),run the following command:
+
+```
+keytool -export -alias thekeystore -file thekeystore.crt -keystore thekeystore
+```
+When asked for a password, provide the same password (we have set the password as *password* ). Executing the preceding command will create *thekeystore.crt* file.
+
+# Exporting the .crt file to Java and the JRE cacert keystore
+
+Execute the following command to find your Java installation directory:
+```
+/usr/libexec/java_home
 ```
 
-Same strategy applies to Windows too, provided you switch `$HOME` to its equivalent in the above command.
+Alternatively, execute the following command directly to add the .crt file to Java cacerts:
 
-### Build Tasks
-
-To see what commands are available in the build, use:
-
-```bash
- ./gradlew[.bat] tasks
+```
+keytool -import -alias thekeystore -storepass password -file thekeystore.crt -keystore  "$(/usr/libexec/java_home)\jre\lib\security\cacerts"
 ```
 
-### Project Dependencies
+The following figure shows successful execution of the preceding command in a command prompt window:
 
-To see where certain dependencies come from in the build:
+When setting up a client, make sure that the JDK used is the same as the one in which we have added the *.crt* file. To reflect the certification addition on to Java, a restart of the machine is suggested.
 
-```bash
-# Show the surrounding 2 before/after lines once a match is found
- ./gradlew[.bat] allDependencies | grep -A 2 -B 2 xyz
+# Building a CAS server project and running it
+From within the cas-sample/cas-server folder, execute the following two commands:
+```
+./build.sh package
+./build.sh run
 ```
 
-Or:
+If everything goes well, as shown in the following figure, you should see a log message which says READY:
 
-```bash
-./gradlew[.bat] allDependenciesInsight --configuration [compile|runtime] --dependency xyz
-```
+Now open a browser and navigate to the URL https://localhost:9443/cas . This will navigate you to the default login form of the CAS server. Enter the default credentials ( casuser / Mellon ) and you are in. Most browsers would say that the connection is insecure. Add the domain as an exception and soon after that the application will work fine:
 
-## Deployment
-
-- Create a keystore file `thekeystore` under `/etc/cas` on Linux. Use `c:/etc/cas` on Windows.
-- Use the password `changeit` for both the keystore and the key/certificate entries.
-- Ensure the keystore is loaded up with keys and certificates of the server.
-    - Add the following to ./etc/cas/config/cas.properties
-    ```
-    server.ssl.keyStore=file:/etc/cas/thekeystore
-    server.ssl.keyStorePassword=changeit
-    server.ssl.keyPassword=changeit
-    ```
-
-On a successful deployment via the following methods, CAS will be available at:
-
-* `http://cas.server.name:8080/cas`
-* `https://cas.server.name:8443/cas`
-
-### Executable WAR
-
-Run the CAS web application as an executable WAR.
-
-```bash
-java -jar cas/build/libs/cas.war
-```
-
-Or via Gradle:
-
-```bash
-# You need to check your project path into cas/build.gradle for this command
-./gradlew[.bat] run
-```
-
-### Spring Boot
-
-Run the CAS web application as an executable WAR via Spring Boot. This is most useful during development and testing.
-
-```bash
-./gradlew[.bat] bootrun
-```
-
-#### Warning!
-
-Be careful with this method of deployment. `bootRun` is not designed to work with already executable WAR artifacts such that CAS server web application. YMMV. Today, uses of this mode ONLY work when there is **NO OTHER** dependency added to the build script and the `cas-server-webapp` is the only present module. See [this issue](https://github.com/apereo/cas/issues/2334) and [this issue](https://github.com/spring-projects/spring-boot/issues/8320) for more info.
-
-### External
-
-Deploy resultant `cas/build/libs/cas.war` to a servlet container of choice.
-
-## Troubleshooting
-
-You can also run the CAS server in `DEBUG` mode to step into the code
-via an IDE that is able to connect to the port `5005`.
-
-```bash
-./gradlew[.bat] debug
-```
-
-To setup a development environment for either IntelliJ IDEA:
-
-```bash
-# ./gradlew[.bat] idea
-```
-
-The above tasks help to setup a project for your development environment. If you find that something has gone wrong, you can always start anew by using the following:
-
-```bash
-# ./gradlew[.bat] cleanIdea
-```
-
-
-## Explode WAR
-
-You may explode/unzip the generated CAS web application if you wish to peek into the artifact
-to examine dependencies, configuration files and such that are merged as part of the overlay build process.
-
-```bash
-./gradlew[.bat] explodeWar
-```
-# Running the services for Developing
-
-Now we are going to use docker-compose to start the actual image.  To start the docker image,
-change to the directory containing  your   source code.  Issue the following docker-compose command:
-
-   **docker-compose -f docker/common/docker-compose.yml up**
-   
-   
-   
-# Running Cargo plugins
-
-mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run
+Log in with the demo test user ( testcasuser / password ) and you should be logged in and navigated to a user home page.
